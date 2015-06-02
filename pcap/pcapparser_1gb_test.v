@@ -11,7 +11,7 @@ module PcapParser_test;
 
 	// Inputs
 	reg CLOCK = 0;
-	reg paused = 1;
+	reg paused = 0; // 1;
 	wire available;
 	wire [7:0] pktcount;
 	wire streamvalid;
@@ -32,7 +32,7 @@ module PcapParser_test;
 	);
 
 	always #10 CLOCK = ~CLOCK;
-	always #100 paused = ~paused;
+	//always #100 paused = ~paused;
 
 	integer i;
 
@@ -48,13 +48,13 @@ module PcapParser_test;
 		#100;
 
 		// Add stimulus here
-		while (~pcapfinished ) begin
+		while (1) begin //~pcapfinished ) begin
 			// $display("stream: %8d %x %d %x %x %c", i, paused, pktcount, streamvalid, stream, stream);
 			#20
 			i = i+1;
 		end
 
-		$finish;
+		//$finish;
 
 	end
 

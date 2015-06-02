@@ -17,22 +17,22 @@ module PcapParser
 	) (
 		input CLOCK,
 		input pause,
-		output available,
-		output datavalid,
-		output [7:0] data,
-		output [7:0] pktcount,
-		output newpkt,
-		output pcapfinished
+		output reg available,
+		output reg datavalid,
+		output reg [7:0] data,
+		output reg [7:0] pktcount,
+		output reg newpkt,
+		output reg pcapfinished
 	);
 
 	// regs
-	reg available = 0;
+/*	reg available = 0;
 	reg datavalid = 0;
 	reg [7:0] pktcount = 0;	// line up with Wireshark GUI
 	reg [7:0] data = 0;
 	reg pcapfinished = 0;
 	reg newpkt = 0;
-
+*/
 	// buffers for message
 	reg [7:0] global_header [0:23];
 	reg [7:0] packet_header [0:15];
@@ -48,7 +48,12 @@ module PcapParser
 	integer countIPG = 0;
 
 	initial begin
-
+		available = 0;
+		datavalid = 0;
+		pktcount = 0;
+		data = 0;
+		pcapfinished = 0;
+		newpkt = 0;
 		// open pcap file
 		if (pcap_filename == "none") begin
 			$display("pcap filename parameter not set");
